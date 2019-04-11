@@ -1,0 +1,57 @@
+<mat-card>
+	<mat-card-title>
+		Total Daily Energy Expenditure
+	</mat-card-title>
+	<mat-card-content>
+		<form [formGroup]="tdeeForm" (ngSubmit)="onFormSubmit(tdeeForm.value)">
+			<mat-form-field>
+				<mat-label>Gender</mat-label>
+				<mat-select formControlName="Gender">
+					<mat-option value="F">Female</mat-option>
+					<mat-option value="M">Male</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<br>
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput [min]="18" formControlName="Age" type="number" value="">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Units</mat-label>
+        <mat-select formControlName="Units">
+          <mat-option value="I" selected>Imperial</mat-option>
+          <mat-option value="M">Metric</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <ng-container *ngIf="tdeeForm.get('Units').value === 'I'">
+        <mat-form-field>
+          <mat-label>Height (ft/in)</mat-label>
+          <input matInput [min]="0" formControlName="Height" value=""  sufix=" cm" [showMaskTyped]="false" mask="000.00">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+         <mat-label>Weight (lbs)</mat-label>
+         <input matInput [min]="0" formControlName="Weight" value="" sufix=" lbs" [showMaskTyped]="false"  mask="000.00">
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="tdeeForm.get('Units').value === 'M'">
+        <mat-form-field>
+          <mat-label>Height (cm)</mat-label>
+          <input matInput [min]="0" formControlName="Height" value=""  sufix=" cm" [showMaskTyped]="false" mask="000.00">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+         <mat-label>Weight (kg)</mat-label>
+         <input matInput [min]="0" formControlName="Weight" value="" sufix=" kg" [showMaskTyped]="false"  mask="000.00">
+        </mat-form-field>
+      </ng-container>
+      <br>
+    </form>
+    </mat-card-content>
+</mat-card>
+
+<hr>
+
+<pre>{{ tdeeForm.value | json }}</pre>
